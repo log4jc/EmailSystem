@@ -42,15 +42,7 @@ mybatis:
 #自定义属性
 CustomProps:
   druidConfig:
-    #IP白名单 (没有配置或者为空，则允许所有访问)
-    allow: 192.168.16.110,127.0.0.1
-    #IP黑名单 (存在共同时，deny优先于allow)
-    deny: 192.168.16.111
-    #用户名
-    loginUsername: admin
-    #密码
-    loginPassword: Albertliu123!
-    #禁用HTML页面上的“Reset All”功能
+
     resetEnable: false
     #过滤所有路径
     filterUrlPatterns: /*
