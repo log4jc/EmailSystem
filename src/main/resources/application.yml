@@ -2,10 +2,7 @@ server:
   port: 8081
 spring:
   datasource:
-    name: EMAILSYSTEM
-    url: jdbc:mysql://127.0.0.1:3306/EMAILSYSTEM
-    username: root
-    password: root
+
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
@@ -39,11 +36,19 @@ mybatis:
     mapper-locations: classpath:mappers/*.xml
     type-aliases-package: com.grocery.domain
 
+spring:
+  mail:
+
+
+mail:
+  fromMail:
+    #以谁来发送邮件
+    addr: xxx@oo.com
+
 #自定义属性
 CustomProps:
   druidConfig:
 
-    resetEnable: false
     #过滤所有路径
     filterUrlPatterns: /*
     #除了图片还有druid路径下的数据
