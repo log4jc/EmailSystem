@@ -2,7 +2,6 @@ server:
   port: 8081
 spring:
   datasource:
-
     # 使用druid数据源
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
@@ -31,27 +30,19 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #spring.datasource.useGlobalDataSourceStat: true
-
-mybatis:
-    mapper-locations: classpath:mappers/*.xml
-    type-aliases-package: com.grocery.domain
-
-spring:
   mail:
-    \
-    #默认编码
-    default-encoding: UTF-8
+
 
 mail:
   fromMail:
 
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.jwebcoder.emailsystem.entity
 
 #自定义属性
 CustomProps:
   druidConfig:
-
-    #禁用HTML页面上的“Reset All”功能
-    resetEnable: false
     #过滤所有路径
     filterUrlPatterns: /*
     #除了图片还有druid路径下的数据
