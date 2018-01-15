@@ -16,7 +16,7 @@
 
         <!-- !!!! Database Configurations !!!! -->
         <!-- 数据库链接URL、用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/GROCERY"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/EMAILSYSTEM"
                         userId="root" password="root"/>
 
         <javaTypeResolver>
@@ -35,12 +35,36 @@
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
-        <javaClientGenerator targetPackage="com.jwebcoder.emailsystem.dao" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="com.jwebcoder.emailsystem.dao" targetProject="src/main/java"
+                             type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
-
+        <!--<table tableName="SIMPLE_EMAIL" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               mapperName="SimpleEmailDao">
+            <property name="useActualColumnNames" value="false"/>
+        </table>-->
+        <!--<table tableName="ATTACHMENT" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               mapperName="AttachmentDao">
+            <property name="useActualColumnNames" value="false"/>
+        </table>-->
+        <!--<table tableName="CONTENT_TEMPLATE" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               mapperName="ContentTemplateDao">
+            <property name="useActualColumnNames" value="false"/>
+        </table>-->
+        <!--<table tableName="HTML_EMAIL" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               mapperName="HtmlEmailDao">
+            <property name="useActualColumnNames" value="false"/>
+        </table>-->
 
     </context>
 </generatorConfiguration>

@@ -38,17 +38,20 @@ mybatis:
 
 spring:
   mail:
-
+    \
+    #默认编码
+    default-encoding: UTF-8
 
 mail:
   fromMail:
-    #以谁来发送邮件
-    addr: xxx@oo.com
+
 
 #自定义属性
 CustomProps:
   druidConfig:
 
+    #禁用HTML页面上的“Reset All”功能
+    resetEnable: false
     #过滤所有路径
     filterUrlPatterns: /*
     #除了图片还有druid路径下的数据
