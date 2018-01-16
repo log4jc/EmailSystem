@@ -65,6 +65,12 @@
                mapperName="HtmlEmailDao">
             <property name="useActualColumnNames" value="false"/>
         </table>-->
+        <!--<table tableName="EMAIL_SEND_STATE" enableCountByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false"
+               enableUpdateByExample="false"
+               mapperName="EmailSendStateDao">
+            <property name="useActualColumnNames" value="false"/>
+        </table>-->
 
     </context>
 </generatorConfiguration>
