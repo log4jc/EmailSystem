@@ -21,7 +21,7 @@ public class SendServiceImplTest {
     @Test
     public void sendSimpleEmail1() throws Exception {
 
-        sendService.sendSimpleEmail("dfasdf");
+//        sendService.sendSimpleEmail("dfasdf");
 
     }
 

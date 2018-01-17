@@ -53,8 +53,9 @@ public class SendServiceImpl implements SendService {
         emailSendState.setLastUpdateDatetime(DateUtility.getCurrentDate());
         emailSendState.setEmailId(simpleEmail.getId());
         emailSendState.setVersion(0);
-        emailSendState.setStatus(String.valueOf(status));
+        emailSendState.setStatus(status ? "Successful" : "Failed");
         emailSendState.setType("SimpleEmail");
+        emailSendState.setErrorDescr(descr);
 
         return emailSendState;
     }
@@ -66,8 +67,9 @@ public class SendServiceImpl implements SendService {
         emailSendState.setLastUpdateDatetime(DateUtility.getCurrentDate());
         emailSendState.setEmailId(htmlEmail.getId());
         emailSendState.setVersion(0);
-        emailSendState.setStatus(String.valueOf(status));
+        emailSendState.setStatus(status ? "Successful" : "Failed");
         emailSendState.setType("HtmlEmail");
+        emailSendState.setErrorDescr(descr);
 
         return emailSendState;
     }
