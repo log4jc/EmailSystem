@@ -4,15 +4,13 @@ import com.jwebcoder.emailsystem.dao.AttachmentDao;
 import com.jwebcoder.emailsystem.dao.EmailSendStateDao;
 import com.jwebcoder.emailsystem.dao.HtmlEmailDao;
 import com.jwebcoder.emailsystem.dao.SimpleEmailDao;
-import com.jwebcoder.emailsystem.dto.EmailSendStateResponse;
-import com.jwebcoder.emailsystem.dto.Message;
 import com.jwebcoder.emailsystem.entity.Attachment;
 import com.jwebcoder.emailsystem.entity.EmailSendState;
 import com.jwebcoder.emailsystem.entity.HtmlEmail;
 import com.jwebcoder.emailsystem.entity.SimpleEmail;
 import com.jwebcoder.emailsystem.service.SendService;
-import com.jwebcoder.emailsystem.utility.DateUtility;
-import com.jwebcoder.emailsystem.utility.PackageInfo;
+import com.jwebcoder.emailsystem.utility.LogTransfer;
+import com.jwebcoder.emailsystem.utility.MatchException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,39 +44,13 @@ public class SendServiceImpl implements SendService {
     @Autowired
     private EmailSendStateDao emailSendStateDao;
 
-    private EmailSendState trasfor2Log(SimpleEmail simpleEmail, boolean status, String descr) {
-        EmailSendState emailSendState = new EmailSendState();
-
-        emailSendState.setCreateDatetime(DateUtility.getCurrentDate());
-        emailSendState.setLastUpdateDatetime(DateUtility.getCurrentDate());
-        emailSendState.setEmailId(simpleEmail.getId());
-        emailSendState.setVersion(0);
-        emailSendState.setStatus(status ? "Successful" : "Failed");
-        emailSendState.setType("SimpleEmail");
-        emailSendState.setErrorDescr(descr);
-
-        return emailSendState;
-    }
-
-    private EmailSendState trasfor2Log(HtmlEmail htmlEmail, boolean status, String descr) {
-        EmailSendState emailSendState = new EmailSendState();
-
-        emailSendState.setCreateDatetime(DateUtility.getCurrentDate());
-        emailSendState.setLastUpdateDatetime(DateUtility.getCurrentDate());
-        emailSendState.setEmailId(htmlEmail.getId());
-        emailSendState.setVersion(0);
-        emailSendState.setStatus(status ? "Successful" : "Failed");
-        emailSendState.setType("HtmlEmail");
-        emailSendState.setErrorDescr(descr);
-
-        return emailSendState;
-    }
-
     @Override
     @Transactional
-    public boolean sendSimpleEmail(SimpleEmail simpleEmail) {
+    public EmailSendState sendSimpleEmail(SimpleEmail simpleEmail) {
 
         SimpleMailMessage message = new SimpleMailMessage();
+        EmailSendState emailSendState = null;
+
         try {
             message.setFrom(simpleEmail.getSendFrom());
             message.setTo(simpleEmail.getSendTo());
@@ -92,23 +64,27 @@ public class SendServiceImpl implements SendService {
             message.setText(simpleEmail.getContent());
             javaMailSender.send(message);
 
-            emailSendStateDao.insert(trasfor2Log(simpleEmail, true, null));
+            emailSendState = LogTransfer.transfer2Log(simpleEmail, true, null);
 
-            return true;
+            emailSendStateDao.insert(emailSendState);
+
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
-            emailSendStateDao.insert(trasfor2Log(simpleEmail, false, e.getMessage()));
+            emailSendStateDao.insert(LogTransfer.transfer2Log(simpleEmail, false, e.getMessage()));
+            MatchException.matchException(e.getMessage());
         }
 
-        return false;
-
+        return emailSendState;
     }
 
     @Override
     @Transactional
-    public boolean sendHtmlEmail(HtmlEmail htmlEmail) {
+    public EmailSendState sendHtmlEmail(HtmlEmail htmlEmail) {
+
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
+        MimeMessageHelper helper;
+        EmailSendState emailSendState = null;
+
         try {
             helper = new MimeMessageHelper(message, true, "utf-8");
 
@@ -124,21 +100,26 @@ public class SendServiceImpl implements SendService {
             helper.setText(new String(htmlEmail.getContent()), true);
             javaMailSender.send(message);
 
-            emailSendStateDao.insert(trasfor2Log(htmlEmail, true, null));
+            emailSendState = LogTransfer.transfer2Log(htmlEmail, true, null);
 
-            return true;
+            emailSendStateDao.insert(emailSendState);
+
         } catch (MessagingException e) {
             logger.error(e.getMessage(), e);
-            emailSendStateDao.insert(trasfor2Log(htmlEmail, false, e.getMessage()));
+            emailSendStateDao.insert(LogTransfer.transfer2Log(htmlEmail, false, e.getMessage()));
+            MatchException.matchException(e.getMessage());
         }
-        return false;
+
+        return emailSendState;
     }
 
     @Override
     @Transactional
-    public boolean sendHtmlEmail(HtmlEmail htmlEmail, String attachmentId) {
+    public EmailSendState sendHtmlEmail(HtmlEmail htmlEmail, String attachmentId) {
         MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper helper = null;
+        MimeMessageHelper helper;
+        EmailSendState emailSendState = null;
+
         try {
             helper = new MimeMessageHelper(message, true, "utf-8");
 
@@ -159,42 +140,37 @@ public class SendServiceImpl implements SendService {
             helper.addAttachment(attachment.getAttachmentName(), attachmentFile);
             javaMailSender.send(message);
 
-            emailSendStateDao.insert(trasfor2Log(htmlEmail, true, null));
+            emailSendState = LogTransfer.transfer2Log(htmlEmail, true, null);
+            emailSendStateDao.insert(emailSendState);
 
-            return true;
         } catch (MessagingException e) {
             logger.error(e.getMessage(), e);
-            emailSendStateDao.insert(trasfor2Log(htmlEmail, false, e.getMessage()));
+            emailSendStateDao.insert(LogTransfer.transfer2Log(htmlEmail, false, e.getMessage()));
+
+            MatchException.matchException(e.getMessage());
         }
-        return false;
+
+        return emailSendState;
     }
 
     @Override
-    public Message sendSimpleEmail(String id) {
+    public EmailSendState sendSimpleEmail(String id) {
 
-        SimpleEmail simpleEmail = simpleEmailDao.selectByPrimaryKey(id);
-
-        sendSimpleEmail(simpleEmail);
-
-        return PackageInfo.packageSuccess(new EmailSendStateResponse("successful"));
+        return sendSimpleEmail(simpleEmailDao.selectByPrimaryKey(id));
 
     }
 
     @Override
-    public Message sendHtmlEmail(String id) {
-        HtmlEmail htmlEmail = htmlEmailDao.selectByPrimaryKey(id);
+    public EmailSendState sendHtmlEmail(String id) {
 
-        sendHtmlEmail(htmlEmail);
+        return sendHtmlEmail(htmlEmailDao.selectByPrimaryKey(id));
 
-        return PackageInfo.packageSuccess(new EmailSendStateResponse("successful"));
     }
 
     @Override
-    public Message sendHtmlEmail(String id, String attachmentId) {
-        HtmlEmail htmlEmail = htmlEmailDao.selectByPrimaryKey(id);
+    public EmailSendState sendHtmlEmail(String id, String attachmentId) {
 
-        sendHtmlEmail(htmlEmail, attachmentId);
+        return sendHtmlEmail(htmlEmailDao.selectByPrimaryKey(id), attachmentId);
 
-        return PackageInfo.packageSuccess(new EmailSendStateResponse("successful"));
     }
 }

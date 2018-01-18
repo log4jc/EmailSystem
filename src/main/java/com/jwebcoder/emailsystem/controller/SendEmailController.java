@@ -20,33 +20,33 @@ public class SendEmailController {
     private SendService sendService;
 
     @PostMapping("/html/{id}/{attachmentId}/execution")
-    public Message sendHtmlEmailByIdWithAttachment(@PathVariable(value = "id", required = true) String id, @PathVariable(value = "attachmentId", required = true) String attachmentId) {
-        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(id,attachmentId));
+    public Message sendHtmlEmailByIdWithAttachment(@PathVariable(value = "id") String id, @PathVariable(value = "attachmentId") String attachmentId) {
+        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(id, attachmentId));
     }
 
     @PostMapping("/html/{id}/execution")
-    public Message sendHtmlEmailById(@PathVariable(value = "id", required = true) String id) {
+    public Message sendHtmlEmailById(@PathVariable(value = "id") String id) {
         return PackageInfo.packageSuccess(sendService.sendHtmlEmail(id));
     }
 
     @PostMapping("/simple/{id}/execution")
-    public Message sendSimpleEmailById(@PathVariable(value = "id", required = true) String id) {
+    public Message sendSimpleEmailById(@PathVariable(value = "id") String id) {
         return PackageInfo.packageSuccess(sendService.sendSimpleEmail(id));
     }
 
     @PostMapping("/htmlWithAttachment/execution")
-    public Message sendHtmlEmailWithAttachment(@RequestBody HtmlEmail htmlEmail, @PathVariable(value = "attachmentId", required = true) String attachmentId) {
-        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(htmlEmail,attachmentId) ? "Successful" : "Failed");
+    public Message sendHtmlEmailWithAttachment(@RequestBody HtmlEmail htmlEmail) {
+        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(htmlEmail, htmlEmail.getAttachmentId()));
     }
 
     @PostMapping("/html/execution")
     public Message sendHtmlEmail(@RequestBody HtmlEmail htmlEmail) {
-        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(htmlEmail) ? "Successful" : "Failed");
+        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(htmlEmail));
     }
 
     @PostMapping("/simple/execution")
     public Message sendSimpleEmail(@RequestBody SimpleEmail simpleEmail) {
-        return PackageInfo.packageSuccess(sendService.sendSimpleEmail(simpleEmail) ? "Successful" : "Failed");
+        return PackageInfo.packageSuccess(sendService.sendSimpleEmail(simpleEmail));
     }
 
 }

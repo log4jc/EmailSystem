@@ -10,7 +10,8 @@ public class PackageInfo {
 
         Message message = new Message();
         message.setId(EmailSystemErrorStatusCode.SUCCESSFUL.getCode());
-        message.setMessage(EmailSystemErrorStatusCode.SUCCESSFUL.getDetailInfo());
+        message.setMessage(EmailSystemErrorStatusCode.SUCCESSFUL.getBrieInfo());
+        message.setDetailMessage(EmailSystemErrorStatusCode.SUCCESSFUL.getDetailInfo());
         message.setData(object);
 
         return message;
@@ -20,7 +21,8 @@ public class PackageInfo {
 
         Message message = new Message();
         message.setId(emailSystemException.getCode());
-        message.setMessage(emailSystemException.getDetailInfo());
+        message.setMessage(emailSystemException.getBrieInfo());
+        message.setDetailMessage(emailSystemException.getDetailInfo());
 
         return message;
     }

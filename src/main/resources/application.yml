@@ -30,11 +30,7 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #spring.datasource.useGlobalDataSourceStat: true
-  mail:
-    #邮箱服务器地址=
 
-mail:
-  fromMail:=
 
 mybatis:
     mapper-locations: classpath:mapper/*.xml
@@ -43,6 +39,7 @@ mybatis:
 #自定义属性
 CustomProps:
   druidConfig:
+
     #禁用HTML页面上的“Reset All”功能
     resetEnable: false
     #过滤所有路径

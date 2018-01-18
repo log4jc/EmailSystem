@@ -4,6 +4,7 @@ public class Message<T> {
 
     private int id;
     private String message;
+    private String detailMessage;
     private T data;
 
     public int getId() {
@@ -20,6 +21,14 @@ public class Message<T> {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getDetailMessage() {
+        return detailMessage;
+    }
+
+    public void setDetailMessage(String detailMessage) {
+        this.detailMessage = detailMessage;
     }
 
     public T getData() {
