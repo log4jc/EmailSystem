@@ -36,7 +36,7 @@ public class SendEmailController {
 
     @PostMapping("/htmlWithAttachment/execution")
     public Message sendHtmlEmailWithAttachment(@RequestBody HtmlEmail htmlEmail) {
-        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(htmlEmail, htmlEmail.getAttachmentId()));
+        return PackageInfo.packageSuccess(sendService.sendHtmlEmail(htmlEmail, htmlEmail.getAttachment().getId()));
     }
 
     @PostMapping("/html/execution")

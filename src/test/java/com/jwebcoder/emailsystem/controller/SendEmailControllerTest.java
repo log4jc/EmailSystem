@@ -6,11 +6,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.HashMap;
@@ -46,7 +48,7 @@ public class SendEmailControllerTest {
     @Test
     public void sendSimpleEmailById() throws Exception {
 
-        Map<String, Object> map = new HashMap<>();
+       /* Map<String, Object> map = new HashMap<>();
         map.put("id", "dfasdf");
         map.put("version", "1");
         map.put("sendFrom", "jasonliupm@163.com");
@@ -65,7 +67,7 @@ public class SendEmailControllerTest {
         map.put("custom5", null);
         map.put("content", "测试");
 
-        System.out.println(JSONObject.toJSONString(map));
+        System.out.println(JSONObject.toJSONString(map));*/
 
         /*MvcResult result = mockMvc.perform(post("/q1?address=合肥").content(JSONObject.toJSONString(map)))
                 .andExpect(status().isOk())// 模拟向testRest发送get请求
@@ -86,6 +88,12 @@ public class SendEmailControllerTest {
 
     @Test
     public void sendSimpleEmail() throws Exception {
+
+        RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
+
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+
     }
 
 }

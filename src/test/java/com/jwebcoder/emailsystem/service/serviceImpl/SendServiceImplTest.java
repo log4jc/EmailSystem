@@ -37,14 +37,14 @@ public class SendServiceImplTest {
     @Test
     public void sendSimpleEmail() throws Exception {
 
-        SimpleEmail simpleEmail = new SimpleEmail();
+        /*SimpleEmail simpleEmail = new SimpleEmail();
 
         simpleEmail.setSendFrom("jasonliupm@163.com");
         simpleEmail.setSendTo("1034928615@qq.com");
         simpleEmail.setSubject("吃饭");
         simpleEmail.setContent("明天一起吃饭吧！");
 
-        sendService.sendSimpleEmail(simpleEmail);
+        sendService.sendSimpleEmail(simpleEmail);*/
 //        Assert.assertTrue(sendService.sendSimpleEmail(simpleEmail));
 
     }
@@ -52,7 +52,7 @@ public class SendServiceImplTest {
     @Test
     public void sendHtmlEmail() throws Exception {
 
-        HtmlEmail htmlEmail = new HtmlEmail();
+        /*HtmlEmail htmlEmail = new HtmlEmail();
 
         htmlEmail.setSendFrom("jasonliupm@163.com");
         htmlEmail.setSendTo("1034928615@qq.com");
@@ -63,7 +63,7 @@ public class SendServiceImplTest {
                 .append("<p style='color:#F00'>红色字</p>")
                 .append("<p style='text-align:right'>右对齐</p>");
 
-        htmlEmail.setContent(sb.toString().getBytes());
+        htmlEmail.setContent(sb.toString().getBytes());*/
 
 //        Assert.assertTrue(sendService.sendHtmlEmail(htmlEmail));
 
@@ -72,7 +72,7 @@ public class SendServiceImplTest {
     @Test
     public void sendHtmlEmail1() throws Exception {
 
-        HtmlEmail htmlEmail = new HtmlEmail();
+        /*HtmlEmail htmlEmail = new HtmlEmail();
 
         htmlEmail.setSendFrom("jasonliupm@163.com");
         htmlEmail.setSendTo("1034928615@qq.com");
@@ -83,7 +83,7 @@ public class SendServiceImplTest {
                 .append("<p style='color:#F00'>红色字</p>")
                 .append("<p style='text-align:right'>右对齐</p>");
 
-        htmlEmail.setContent(sb.toString().getBytes());
+        htmlEmail.setContent(sb.toString().getBytes());*/
 
 //        Assert.assertTrue(sendService.sendHtmlEmail(htmlEmail, "asdfhgbergjb"));
 
