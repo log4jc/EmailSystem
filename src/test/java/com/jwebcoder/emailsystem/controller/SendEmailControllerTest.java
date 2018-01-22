@@ -1,5 +1,6 @@
 package com.jwebcoder.emailsystem.controller;
 
+import com.jwebcoder.emailsystem.dto.Message;
 import net.minidev.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +8,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -92,6 +96,17 @@ public class SendEmailControllerTest {
         RestTemplateBuilder restTemplateBuilder = new RestTemplateBuilder();
 
         RestTemplate restTemplate = restTemplateBuilder.build();
+
+        Message message = new Message();
+        message.setId(1);
+        message.setMessage("test");
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
+        HttpEntity httpEntity = new HttpEntity(message,httpHeaders);
+
+        ResponseEntity responseEntity = restTemplate.postForEntity("http://localhost:8081",httpEntity, ResponseEntity.class);
 
 
     }

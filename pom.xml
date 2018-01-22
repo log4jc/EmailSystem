@@ -28,6 +28,7 @@
         <mysql-connector-java>5.1.35</mysql-connector-java>
         <commons-codec>1.6</commons-codec>
         <mybatis-generator-maven-plugin>1.3.5</mybatis-generator-maven-plugin>
+        <fastjson>1.2.41</fastjson>
 	</properties>
 
 	<dependencies>
@@ -100,6 +101,13 @@
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
 
+        <!--引入activeMQ开始-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-activemq</artifactId>
+        </dependency>
+        <!--引入activeMQ结束-->
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -130,6 +138,12 @@
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>${commons-codec}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson}</version>
         </dependency>
 
 	</dependencies>
